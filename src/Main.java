@@ -1,6 +1,6 @@
 /*
- * Name: [YOUR NAME HERE]
- * South Hills Username: [YOUR SOUTH HILLS USERNAME HERE]
+ * Name: [Logan Brooks]
+ * South Hills Username: [lbrooks81]
  */
 //Remember to put your name and SH username above
 
@@ -11,17 +11,61 @@ public class Main
 {
     //Global variables
     public static Random random = new Random();
-
+    public static Scanner input = new Scanner(System.in);
+    public static int guessedNumber = 0;
+    public static int randomNum = 0;
+    public static int guessesRemaining = 0;
+    public static int upperBound = 0;
     public static void main(String[] args)
     {
-        methodReminder();
+        System.out.print("Please enter the upper bound of the range for random numbers: ");
+        upperBound = input.nextInt();
+        System.out.print("Please enter the amount of guesses you'd like: ");
+        guessesRemaining = input.nextInt();
+        randomNum = random.nextInt(0, upperBound);
+        guessPrompt();
+        loop();
+        outputs();
     }
-
-    //Below is an example method showing how to generate a random number.
-    //You should delete it repurpose it.
-    public static void methodReminder()
+    public static void guessPrompt()
     {
-        int num = random.nextInt(0, 5);
-        System.out.println("Here's a random number between 0 and 4: " + num);
+        System.out.println(randomNum);
+        System.out.print("Guess a number from 0 to " + upperBound + ": ");
+        guessedNumber = input.nextInt();
+        System.out.println("You guessed '" + guessedNumber + "'.");
+        if(guessedNumber > upperBound)
+        {
+            System.out.println("This number is beyond the range of numbers.");
+            guessPrompt();
+        }
+    }
+    public static void outputs()
+    {
+        if(guessedNumber == randomNum)
+        {
+            System.out.println("You got it!");
+        }
+        else
+        {
+            System.out.println("You ran out of guesses. The number was " + randomNum + ".");
+        }
+
+    }
+    public static void loop()
+    {
+        while (guessedNumber != randomNum && guessesRemaining != 1)
+        {
+            guessesRemaining--;
+            if(guessedNumber > randomNum)
+            {
+                System.out.println("Your number is too high. You have " + guessesRemaining + " guesses left.");
+            }
+            else
+            {
+                System.out.println("Your number is too low. You have " + guessesRemaining + " guesses left.");
+            }
+            guessPrompt();
+        }
+
     }
 }
